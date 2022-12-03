@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "569352819607",
+    "project_id": "smart-pool-9bfa6",
+    "storage_bucket": "smart-pool-9bfa6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569352819607:android:5570884b0e3a427b246ad2",
+        "android_client_info": {
+          "package_name": "com.example.smartpool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569352819607-un5g54f0e7boacg3nqp0ignrm90f7q0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBULzO8wgC3UDpG6M9HB_je_xjEVZIwegM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569352819607-un5g54f0e7boacg3nqp0ignrm90f7q0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
