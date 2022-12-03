@@ -1,12 +1,7 @@
-// import 'dart:html';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:d_chart/d_chart.dart';
-
-const _tituloAppBar = 'HOME';
-// final stremChart = FirebaseFirestore.instance
-//     .collection('PH')
-//     .snapshots(includeMetadataChanges: true);
+import '../values/standard colors.dart';
+import 'dashboard.dart';
+import 'notifications.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,96 +11,48 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Notifications',
-      style: optionStyle,
-    ),
-  ];
+  int paginaAtual = 0;
+  late PageController pc;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  @override
+  void initState() {
+    super.initState();
+    pc = PageController(initialPage: paginaAtual);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 32, 16, 48),
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(
-          _tituloAppBar,
-          style: TextStyle(
-            color: Color.fromARGB(255, 100, 90, 169),
-          ),
-        ),
-        backgroundColor: Color.fromARGB(255, 76, 35, 112),
-        // The title text which will be shown on the action bar
+      body: PageView(
+        controller: pc,
+        children: [
+          Dashboard(),
+          Notifications(),
+        ],
       ),
-      // body: ListView(
-      //   padding: const EdgeInsets.all(16),
-        // children: [
-        //   StreamBuilder(
-        //     stream: stremChart,
-        //     builder: (context,AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-        //       List listChart = snapshot.data!.docs.map((e){
-        //         return {
-        //           'domain': e.data()['data'],
-        //           'measure': e.data()['ph']
-        //         };
-        //       }).toList();
-        //       return AspectRatio(
-        //     aspectRatio: 16 / 9,
-        //     child: DChartBar(
-        //       data: [
-        //         {
-        //           'id': 'Bar',
-        //           'data': listChart,
-        //         },
-        //       ],
-        //       domainLabelPaddingToAxisLine: 16,
-        //       axisLineTick: 2,
-        //       axisLinePointTick: 2,
-        //       axisLinePointWidth: 10,
-        //       axisLineColor: Color.fromARGB(255, 99, 52, 139),
-        //       measureLabelPaddingToAxisLine: 16,
-        //       barColor: (barData, index, id) =>
-        //           Color.fromARGB(255, 144, 82, 197),
-        //       showBarValue: true,
-        //     ),
-        //   );
-        //     },
-        //   ),
-          
-        // ],
-      // ),
-
-      body: Center(
-      child: _widgetOptions.elementAt(_selectedIndex),),
-      bottomNavigationBar:BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 76, 35, 112),
-        items: const <BottomNavigationBarItem>[
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: CustomColors().getActivePrimaryColorAppBar(),
+        selectedItemColor: CustomColors().getActiveSelectButtonColor(),
+        currentIndex: paginaAtual,
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.assessment_outlined, size: 45),
-            label: '',
+            icon: Icon(Icons.assessment_outlined),
+            label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications, size: 45),
-            label: '',
+            icon: Icon(Icons.notifications),
+            label: 'Notificações',
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 155, 143, 239),
-        onTap: _onItemTapped,
+        onTap: (index) {
+          setState(
+            () {
+              paginaAtual = index;
+              pc.animateToPage(index,
+                  duration: Duration(milliseconds: 500), curve: Curves.ease);
+            },
+          );
+        },
       ),
     );
   }

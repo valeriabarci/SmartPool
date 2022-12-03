@@ -1,10 +1,8 @@
-import 'dart:convert';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smartpool/values/preferences_keys.dart';
-import '../models/user_model.dart';
+import 'package:smartpool/screens/dashboard.dart';
+
+import '../login/login.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -14,34 +12,35 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _firebaseAuth = FirebaseAuth.instance;
 
   bool showPassword = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 70),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 50, 11, 55),
-                Color.fromARGB(255, 76, 35, 112)
-              ],
-            ),
+        height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 70),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 50, 11, 55),
+              Color.fromARGB(255, 76, 35, 112)
+            ],
           ),
-          child: SingleChildScrollView(
-              child: Column(
+        ),
+        child: SingleChildScrollView(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset("images/logo.png", height: 150),
+              Image.asset("images/logo.png", height: 100),
               Text(
                 "SmartPool",
                 textAlign: TextAlign.center,
@@ -185,8 +184,7 @@ class _CadastroState extends State<Cadastro> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          _doSignUp();
-                          Navigator.pop(context);
+                          cadastrar();
                         },
                         child: Text("CADASTRAR"),
                         style: ElevatedButton.styleFrom(
@@ -206,28 +204,32 @@ class _CadastroState extends State<Cadastro> {
                 ),
               ),
             ],
-          ))),
-    );
-  }
-
-  void _doSignUp() {
-    User newUser = User(
-      username: _usernameController.text,
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
-
-    print(newUser);
-    _saveUser(newUser);
-  }
-
-  void _saveUser(User user) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(
-      PreferenceKeys.activeUser,
-      json.encode(
-        user.toJson(),
+          ),
+        ),
       ),
     );
+  }
+
+  cadastrar() async {
+    try {
+      if (_passwordController.text == _confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Login()));
+      } else {
+        print("Senhas não conferem");
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('A senha é muito fraca.');
+      } else if (e.code == 'email-already-in-use') {
+        print('O e-mail já está sendo usado.');
+      }
+    } catch (e) {
+      print(e);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
   }
 }

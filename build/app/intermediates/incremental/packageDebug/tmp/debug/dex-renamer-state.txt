@@ -1,4 +1,4 @@
-#Fri Dec 02 00:05:24 BRT 2022
+#Sat Dec 03 06:51:30 BRT 2022
 base.0=C\:\\Users\\Valeria\\Documents\\smart-pool\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

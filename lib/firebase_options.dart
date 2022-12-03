@@ -47,30 +47,33 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA8L7IJQeihCd0P-olIAcyh4PYjYa_ylvg',
-    appId: '1:569352819607:web:de83fe020640412a246ad2',
-    messagingSenderId: '569352819607',
-    projectId: 'smart-pool-9bfa6',
-    authDomain: 'smart-pool-9bfa6.firebaseapp.com',
-    storageBucket: 'smart-pool-9bfa6.appspot.com',
-    measurementId: 'G-2QGW4NYVK6',
+    apiKey: 'AIzaSyD9UCoKyw3vkcCWpN6yX0IKxHtUrurjxj4',
+    appId: '1:254938635207:web:21189eb77ebcb4a93f57e2',
+    messagingSenderId: '254938635207',
+    projectId: 'smartpool-57e1d',
+    authDomain: 'smartpool-57e1d.firebaseapp.com',
+    databaseURL: 'https://smartpool-57e1d-default-rtdb.firebaseio.com',
+    storageBucket: 'smartpool-57e1d.appspot.com',
+    measurementId: 'G-LXGXJ7P0D5',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBULzO8wgC3UDpG6M9HB_je_xjEVZIwegM',
-    appId: '1:569352819607:android:5570884b0e3a427b246ad2',
-    messagingSenderId: '569352819607',
-    projectId: 'smart-pool-9bfa6',
-    storageBucket: 'smart-pool-9bfa6.appspot.com',
+    apiKey: 'AIzaSyDsXnbBTRsgFMNdJJQZtzVrmDMinbJuUaw',
+    appId: '1:254938635207:android:ec925516f5b1fd383f57e2',
+    messagingSenderId: '254938635207',
+    projectId: 'smartpool-57e1d',
+    databaseURL: 'https://smartpool-57e1d-default-rtdb.firebaseio.com',
+    storageBucket: 'smartpool-57e1d.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAMqtbp-f6j9NC0dWABxnWJdFc0VD9AnNg',
-    appId: '1:569352819607:ios:dd0cf8a5240cb18a246ad2',
-    messagingSenderId: '569352819607',
-    projectId: 'smart-pool-9bfa6',
-    storageBucket: 'smart-pool-9bfa6.appspot.com',
-    iosClientId: '569352819607-hv0rt4dk9l6umvt0ktedd4clallhs75b.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBrubFOyuoeLDZn49ys1TH6OpCxTLVtS7g',
+    appId: '1:254938635207:ios:ec21e92f81b8be523f57e2',
+    messagingSenderId: '254938635207',
+    projectId: 'smartpool-57e1d',
+    databaseURL: 'https://smartpool-57e1d-default-rtdb.firebaseio.com',
+    storageBucket: 'smartpool-57e1d.appspot.com',
+    iosClientId: '254938635207-nkkhmvu7m2eddfeg5h7mgbvl2si3c5dd.apps.googleusercontent.com',
     iosBundleId: 'com.example.helloWorld',
   );
 }

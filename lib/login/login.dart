@@ -1,11 +1,8 @@
-import 'dart:convert';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smartpool/sign_up/sign_up_page.dart';
-
-import '../models/user_model.dart';
-import '../values/preferences_keys.dart';
+import '../screens/home.dart';
+import '../sign_up/sign_up_page.dart';
+import '../values/standard colors.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -15,8 +12,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,12 +50,12 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset("images/logo.png", height: 200),
+              Image.asset("images/logo.png", height: 100),
               Text(
                 "SmartPool",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Color.fromARGB(255, 198, 192, 192),
+                    color: CustomColors().getActiveTextColor(),
                     fontSize: 40,
                     fontWeight: FontWeight.bold),
               ),
@@ -54,7 +66,7 @@ class _LoginState extends State<Login> {
                 "faça seu login e mergulhe na tecnologia",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color.fromARGB(255, 198, 192, 192),
+                  color: CustomColors().getActiveTextColor(),
                   fontSize: 17,
                 ),
               ),
@@ -66,26 +78,29 @@ class _LoginState extends State<Login> {
                   children: [
                     TextFormField(
                       controller: _emailController,
-                      style: TextStyle(color: Colors.white),
+                      style:
+                          TextStyle(color: CustomColors().getActiveTextColor()),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: BorderSide(
+                              color: CustomColors().getActiveTextColor()),
                         ),
                         labelText: "E-mail",
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(
+                            color: CustomColors().getActiveTextColor()),
                         prefixIcon: Icon(
                           Icons.email,
-                          color: Color.fromARGB(255, 99, 52, 139),
+                          color: CustomColors().getActiveBorderSideColor(),
                           size: 30,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color.fromARGB(255, 99, 52, 139),
+                            color: CustomColors().getActiveBorderSideColor(),
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color.fromARGB(255, 99, 52, 139),
+                            color: CustomColors().getActiveBorderSideColor(),
                           ),
                         ),
                       ),
@@ -94,25 +109,28 @@ class _LoginState extends State<Login> {
                       padding: EdgeInsets.only(bottom: 20),
                     ),
                     TextFormField(
+
                       controller: _passwordController,
-                      style: TextStyle(color: Colors.white),
+                      style:
+                          TextStyle(color: CustomColors().getActiveTextColor()),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Senha",
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(
+                            color: CustomColors().getActiveTextColor()),
                         prefixIcon: Icon(
                           Icons.lock_outline,
-                          color: Color.fromARGB(255, 99, 52, 139),
+                          color: CustomColors().getActiveBorderSideColor(),
                           size: 30,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color.fromARGB(255, 99, 52, 139),
+                            color: CustomColors().getActiveBorderSideColor(),
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color.fromARGB(255, 99, 52, 139),
+                            color: CustomColors().getActiveBorderSideColor(),
                           ),
                         ),
                       ),
@@ -133,7 +151,9 @@ class _LoginState extends State<Login> {
                   );
                 },
                 child: Text("Não tem cadastro? Crie agora!",
-                    style: TextStyle(color: Colors.white, fontSize: 13),
+                    style: TextStyle(
+                        color: CustomColors().getActiveTextColor(),
+                        fontSize: 13),
                     textAlign: TextAlign.right),
               ),
               Padding(
@@ -143,11 +163,17 @@ class _LoginState extends State<Login> {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    _doLogin();
+                    signIn();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Home(),
+                      ),
+                    );
                   },
                   child: Text("LOGIN"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 44, 23, 63),
+                    primary: CustomColors().getActivePrimaryColorButtonLogin(),
                     minimumSize: const Size(30, 30),
                     side: BorderSide(width: 1),
                     padding: EdgeInsets.symmetric(vertical: 15),
@@ -155,6 +181,7 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(15)),
                     textStyle: TextStyle(
                       fontSize: 17,
+                      color: CustomColors().getActiveTextColor(),
                     ),
                   ),
                 ),
@@ -164,42 +191,21 @@ class _LoginState extends State<Login> {
               ),
               GestureDetector(
                 onTap: () {
-                  print("Você clicou em Esqueci a senha!");
                 },
                 child: Text("esqueceu sua senha?",
-                    style: TextStyle(color: Colors.white, fontSize: 13),
+                    style: TextStyle(
+                        color: CustomColors().getActiveTextColor(),
+                        fontSize: 13),
                     textAlign: TextAlign.center),
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 20),
               ),
-              Divider(color: Colors.white),
+              Divider(color: CustomColors().getActiveTextColor()),
             ],
           ),
         ),
       ),
     );
-  }
-
-  void _doLogin() async {
-    String emailForm = this._emailController.text;
-    String passwordForm = this._passwordController.text;
-
-    User savedUser = await _getSavedUser();
-    if (emailForm == savedUser.email && passwordForm == savedUser.password) {
-      print("Login realizado com sucesso!");
-    } else {
-      print("Login ou senha inválidos!");
-    }
-  }
-
-  Future<User> _getSavedUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String jsonUser = prefs.getString(PreferenceKeys.activeUser);
-    print(jsonUser);
-
-    Map<String, dynamic> mapUser = json.decode(jsonUser);
-    User user = User.fromJson(mapUser);
-    return user;
   }
 }

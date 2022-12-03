@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "569352819607",
-    "project_id": "smart-pool-9bfa6",
-    "storage_bucket": "smart-pool-9bfa6.appspot.com"
+    "project_number": "254938635207",
+    "firebase_url": "https://smartpool-57e1d-default-rtdb.firebaseio.com",
+    "project_id": "smartpool-57e1d",
+    "storage_bucket": "smartpool-57e1d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:569352819607:android:5570884b0e3a427b246ad2",
+        "mobilesdk_app_id": "1:254938635207:android:ec925516f5b1fd383f57e2",
         "android_client_info": {
           "package_name": "com.example.smartpool"
         }
       },
       "oauth_client": [
         {
-          "client_id": "569352819607-un5g54f0e7boacg3nqp0ignrm90f7q0u.apps.googleusercontent.com",
+          "client_id": "254938635207-nugh07e0s9o4m9dpov1a96of9ho1j0c7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBULzO8wgC3UDpG6M9HB_je_xjEVZIwegM"
+          "current_key": "AIzaSyDsXnbBTRsgFMNdJJQZtzVrmDMinbJuUaw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "569352819607-un5g54f0e7boacg3nqp0ignrm90f7q0u.apps.googleusercontent.com",
+              "client_id": "254938635207-nugh07e0s9o4m9dpov1a96of9ho1j0c7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

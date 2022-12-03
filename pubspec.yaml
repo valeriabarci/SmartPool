@@ -17,13 +17,15 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter_signin_button: ^2.0.0
   flutter:
     sdk: flutter
-  d_chart: ^0.1.0
   firebase_core: ^2.3.0
-  shared_preferences: ^2.0.15
-  http: ^0.12.2
+  firebase_database: ^10.0.6
+  firebase_auth: ^4.1.5
+  provider: ^6.0.4
+  http: ^0.13.5
+  convert: ^3.1.1
+  d_chart: ^1.0.0
 
 dev_dependencies:
   flutter_test:
