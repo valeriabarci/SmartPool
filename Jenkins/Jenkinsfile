@@ -1,4 +1,3 @@
-stage 'Checkout'  node('slave') {   deleteDir()   checkout scm }  stage 'Build & Archive Apk'  node('slave') {   sh 'export ANDROID_SERIAL=192.168.56.101:5555 ; ./build.sh'   step([$class: 'ArtifactArchiver', artifacts: 'meu_aplicativo/build/outputs/apk/meu_aplicativo.apk'])  }  stage 'Run Tests'  node('slave') {   sh 'export ANDROID_SERIAL=192.168.56.101:5555 ; ./runtests.sh'   publishHTML(target: [reportDir: 'meu_aplicativo_testes/build/reports/androidTests/connected/', reportFiles: 'index.html', reportName: 'Testes Instrumentados'])   step([$class: 'JUnitResultArchiver', testResults: 'meu_aplicativo_testes/build/outputs/androidTest-results/connected/*.xml']) }
 stage 'Checkout'
  node('slave') {
   deleteDir()
@@ -8,12 +7,12 @@ stage 'Checkout'
 stage 'Build & Archive Apk'
  node('slave') {
   sh 'export ANDROID_SERIAL=192.168.56.101:5555 ; ./build.sh'
-  step([$class: 'ArtifactArchiver', artifacts: 'meu_aplicativo/build/outputs/apk/meu_aplicativo.apk'])
+  step([$class: 'ArtifactArchiver', artifacts: 'smart-pool/build/app/outputs/flutter-apk/app.apk'])
  }
 
 stage 'Run Tests'
  node('slave') {
   sh 'export ANDROID_SERIAL=192.168.56.101:5555 ; ./runtests.sh'
-  publishHTML(target: [reportDir: 'meu_aplicativo_testes/build/reports/androidTests/connected/', reportFiles: 'index.html', reportName: 'Testes Instrumentados'])
-  step([$class: 'JUnitResultArchiver', testResults: 'meu_aplicativo_testes/build/outputs/androidTest-results/connected/*.xml'])
+  publishHTML(target: [reportDir: 'smart-pool/lib/main', reportFiles: 'main.dart', reportName: 'Testes Instrumentados'])
+  step([$class: 'JUnitResultArchiver', testResults: 'smart-pool/build/app/outputs/flutter-apk/'])
 }
